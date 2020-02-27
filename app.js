@@ -25,33 +25,52 @@ function changeValue() {
         }
     }
     document.getElementById("carogame").innerHTML = data;
-    alert(board[positionX][positionY]);
     checkRow();
+    checkCol();
+    checkDiagonal1();
+    checkDiagonal2()
 }
 
 function checkRow() {
-    let check1 = [];
     for (let i = 0; i < board.length; i++) {
         for (let j = 0; j < board.length; j++) {
-            check1.push(board[i][j]);
-        }
-        if ((check1[0] === check1[1] && check1[1] === check1[2]) || (check1[1] === check1[2] && check1[2] === check1[3]) || (check1[2] === check1[3] && check1[3] === check1[4]){
-            alert("You Win!");
-            break;
-        } else {
-            check1 = [];
+            if (board[i][j - 1] === " x " && board[i][j] === " x " && board[i][j + 1] === " x ") {
+                alert("You Win!");
+                break;
+            }
         }
     }
 }
 
 function checkCol() {
-
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            if (board[i-1][j] === " x " && board[i][j] === " x " && board[i+1][j] === " x ") {
+                alert("You Win!");
+                break;
+            }
+        }
+    }
 }
 
 function checkDiagonal1() {
-
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            if (board[i-1][j - 1] === " x " && board[i][j] === " x " && board[i+1][j + 1] === " x ") {
+                alert("You Win!");
+                break;
+            }
+        }
+    }
 }
 
 function checkDiagonal2() {
-
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board.length; j++) {
+            if (board[i-1][j+1] === " x " && board[i][j] === " x " && board[i+1][j -1 ] === " x ") {
+                alert("You Win!");
+                break;
+            }
+        }
+    }
 }
