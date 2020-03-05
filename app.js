@@ -16,7 +16,7 @@ function drawBoardGame(size){
 let status='x';
 function changeStatus(cell,xPos,yPos){
     cell.innerHTML=status;
-    if(status==='x'){
+    if(status=='x'){
         listGame[xPos][yPos]=0;
         status='o';
     }
@@ -32,29 +32,65 @@ function checkWin(xPos,yPos){
     let i=xPos;
     let j=yPos;
     let valueOfCell=listGame[xPos][yPos];
-    alert(valueOfCell);
-    while(listGame[i][j+1]=== valueOfCell){
+    while(listGame[i][j+1]===valueOfCell){
         count++;
-        if (confirmWinner(count,5)){
-            alert("You are winner!");
-        }
+        confirmWinner(count,5);
         j++;
     }
     i=xPos;
     j=yPos;
-    while(listGame[i][j-1]=== valueOfCell){
+    while(listGame[i][j-1]===valueOfCell){
         count++;
-        if (confirmWinner(count,5)){
-            alert("You are winner!");
-        }
+        confirmWinner(count,5);
         j--;
     }
-}
+    i=xPos;
+    j=yPos;
+    while(listGame[i+1][j]===valueOfCell){
+        count++;
+        confirmWinner(count,5);
+        i++;
+    }
+    i=xPos;
+    j=yPos;
+    while(listGame[i-1][j]===valueOfCell){
+        count++;
+        confirmWinner(count,5);
+        i--;
+    }
+    i=xPos;
+    j=yPos;
+    while(listGame[i+1][j+1]===valueOfCell){
+        count++;
+        confirmWinner(count,5);
+        i++;
+        j++;
+    }
+    i=xPos;
+    j=yPos;
+    while(listGame[i-1][j-1]===valueOfCell){
+        count++;
+        confirmWinner(count,5);
+        i--;
+        j--;
+    }
+    while(listGame[i+1][j-1]===valueOfCell){
+        count++;
+        confirmWinner(count,5);
+        i++;
+        j--;
+    }
+    while(listGame[i-1][j+1]===valueOfCell){
+        count++;
+        confirmWinner(count,5);
+        i--;
+        j++;
+    }
 
+}
 function confirmWinner(count,number){
     if(count===number){
-        return true;
-    } else{
+        alert("You are winner!");
         return;
     }
 }
