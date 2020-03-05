@@ -1,76 +1,60 @@
-let board = [];
-let data = "";
-for (let i = 0; i < 5; i++) {
-    board[i] = ["<strong>.</strong> &nbsp;", "<strong>.</strong> &nbsp;", "<strong>.</strong> &nbsp;", "<strong>.</strong> &nbsp;", "<strong>.</strong> &nbsp;"];
-}
-
-for (let i = 0; i < 5; i++) {
-    data += "<br>";
-    for (let j = 0; j < 5; j++) {
-        data += board[i][j] + "   ";
-    }
-}
-document.getElementById("carogame").innerHTML = data;
-
-
-function changeValue() {
-    let positionX = prompt("X: ");
-    let positionY = prompt("Y: ");
-    board[positionX][positionY] = " x ";
-    data = "";
-    for (let i = 0; i < 5; i++) {
-        data += "<br>";
-        for (let j = 0; j < 5; j++) {
-            data += board[i][j] + "   ";
+let listGame=[];
+function drawBoardGame(size){
+    let game="<table>";
+    for(i=0;i<size;i++){
+        game+="<tr>";
+        listGame[i]=[];
+        for(j=0;j<size;j++){
+            game+="<td onclick='changeStatus(this,"+i+","+j+");'>&nbsp;</td>";
+            listGame[i][j]=-1;
         }
+        game+="</tr>";
     }
-    document.getElementById("carogame").innerHTML = data;
-    checkRow();
-    checkCol();
-    checkDiagonal1();
-    checkDiagonal2()
+    game+="</table>";
+    document.getElementById("gameboard").innerHTML=game;
 }
-
-function checkRow() {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board.length; j++) {
-            if (board[i][j - 1] === " x " && board[i][j] === " x " && board[i][j + 1] === " x ") {
-                alert("You Win!");
-                break;
-            }
-        }
+let status='x';
+function changeStatus(cell,xPos,yPos){
+    cell.innerHTML=status;
+    if(status==='x'){
+        listGame[xPos][yPos]=0;
+        status='o';
     }
-}
-
-function checkCol() {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board.length; j++) {
-            if (board[i-1][j] === " x " && board[i][j] === " x " && board[i+1][j] === " x ") {
-                alert("You Win!");
-                break;
-            }
-        }
+    else{
+        listGame[xPos][yPos]=1;
+        status='x';
     }
+    checkWin(xPos,yPos);
 }
-
-function checkDiagonal1() {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board.length; j++) {
-            if (board[i-1][j - 1] === " x " && board[i][j] === " x " && board[i+1][j + 1] === " x ") {
-                alert("You Win!");
-                break;
-            }
+function checkWin(xPos,yPos){
+    console.log(listGame);
+    let count=1;
+    let i=xPos;
+    let j=yPos;
+    let valueOfCell=listGame[xPos][yPos];
+    alert(valueOfCell);
+    while(listGame[i][j+1]=== valueOfCell){
+        count++;
+        if (confirmWinner(count,5)){
+            alert("You are winner!");
         }
+        j++;
+    }
+    i=xPos;
+    j=yPos;
+    while(listGame[i][j-1]=== valueOfCell){
+        count++;
+        if (confirmWinner(count,5)){
+            alert("You are winner!");
+        }
+        j--;
     }
 }
 
-function checkDiagonal2() {
-    for (let i = 0; i < board.length; i++) {
-        for (let j = 0; j < board.length; j++) {
-            if (board[i-1][j+1] === " x " && board[i][j] === " x " && board[i+1][j -1 ] === " x ") {
-                alert("You Win!");
-                break;
-            }
-        }
+function confirmWinner(count,number){
+    if(count===number){
+        return true;
+    } else{
+        return;
     }
 }
